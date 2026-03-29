@@ -1,50 +1,106 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.1.0 → 1.2.0
+
+Modified sections: Merged constitutions/global.md back into constitution.md
+
+Added: Purpose, Core Principles, Development Rules & Output Standards, Governance sections
+Removed: constitutions/global.md (content merged here); index table row for global.md
+
+Templates requiring updates:
+  ✅ .specify/memory/constitution.md — merged global content (this file)
+  ✅ .specify/memory/constitutions/global.md — deleted
+  ✅ .specify/memory/constitutions/frontend.md — no change required
+  ✅ .specify/memory/constitutions/backend.md — no change required
+
+Follow-up TODOs: None
+-->
+
+# Houseshi Constitution
+
+## Purpose
+
+เพื่อให้ระบบสร้าง spec และคำตอบที่ชัดเจน ถูกต้อง และใช้งานได้จริง
+(To enable the system to produce clear, accurate, and immediately actionable specs and answers.)
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Clarity Over Length
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+Responses and specs MUST prioritize clarity over comprehensiveness. Use bullet points when
+explaining multiple items. Use plain, accessible language. Every output MUST be actionable —
+the reader can apply it immediately without further clarification.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+**Rationale**: Verbose output increases cognitive overhead and obscures the signal. Actionable
+clarity reduces rework and misunderstanding downstream.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### II. Honesty Over Assumptions
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+Agents MUST NOT fabricate data, facts, or references when none exist. If information is
+insufficient, the agent MUST explicitly state uncertainty and ask for clarification before
+proceeding. Guessing is prohibited.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+**Rationale**: Incorrect assumptions cascade into incorrect specs and implementations. A
+transparent "I don't know" is always safer than a confident wrong answer.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### III. Reasoned Responses
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+Every significant decision or recommendation MUST be accompanied by a rationale. Decisions
+without justification MUST be challenged during review.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+**Rationale**: Traceable reasoning allows reviewers to identify flawed premises early and
+supports knowledge transfer across team members.
+
+## Development Rules & Output Standards
+
+### Scope Compliance
+
+- Agents MUST NOT answer or generate content outside the scope of the active spec.
+- Requirements not present in the spec MUST be flagged explicitly, not assumed.
+
+### Data Integrity
+
+- Facts stated in outputs MUST have a traceable source or be explicitly marked as inference.
+- When uncertain, the agent MUST declare uncertainty rather than speculate.
+
+### Decision Guidelines
+
+- When multiple valid solutions exist, choose the simplest and most maintainable option.
+- When information is insufficient to make a decision, ask for clarification before proceeding.
+
+### Output Formatting
+
+- Use bullet points for multi-item explanations.
+- Use plain, accessible language.
+- Every output MUST be actionable — the reader can apply it without additional context.
+
+## Domain-Specific Constitutions
+
+Domain stack rules are defined in the following files. All files carry equal authority;
+agents MUST comply with every applicable constitution for their domain.
+
+| File                               | Scope                                       |
+|------------------------------------|---------------------------------------------|
+| [constitutions/frontend.md](constitutions/frontend.md) | Next.js (TypeScript) and Tailwind CSS stack |
+| [constitutions/backend.md](constitutions/backend.md)   | Django, DRF, and PostgreSQL stack           |
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all other project practices and agent instructions where they
+conflict. Amendments require:
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+1. A documented rationale for the change.
+2. A version bump following semantic versioning:
+   - **MAJOR**: Removal or redefinition of a principle; backward-incompatible governance change.
+   - **MINOR**: New principle, section, or materially expanded guidance added.
+   - **PATCH**: Clarifications, wording improvements, typo fixes.
+3. A Sync Impact Report (as an HTML comment at the top of this file) listing all affected
+   templates and artifacts.
+4. All dependent templates MUST be reviewed and updated before the amendment is ratified.
+
+All PRs and spec reviews MUST verify compliance with the principles in this document.
+Domain-specific deviations from the defined tech stacks MUST be justified in the relevant
+`plan.md` under **Complexity Tracking**.
+
+**Version**: 1.2.0 | **Ratified**: 2026-03-23 | **Last Amended**: 2026-03-25
