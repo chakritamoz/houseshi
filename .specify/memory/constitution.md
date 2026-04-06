@@ -1,6 +1,26 @@
 <!--
 SYNC IMPACT REPORT
 ==================
+Version change: 1.2.0 → 1.3.0
+
+Modified sections:
+  - Domain-Specific Constitutions table: integration.md row added
+
+Added sections: none (table row only)
+Removed sections: none
+
+Templates requiring updates:
+  ✅ .specify/memory/constitution.md — this file
+  ✅ .specify/memory/constitutions/frontend.md — ownership + scope updated (v3.0.0)
+  ✅ .specify/memory/constitutions/integration.md — created (v1.0.0)
+
+Follow-up TODOs:
+  - Existing frontend code that owns API service calls must be migrated to the integration layer.
+
+---
+
+Previous report (1.1.0 → 1.2.0):
+==================
 Version change: 1.1.0 → 1.2.0
 
 Modified sections: Merged constitutions/global.md back into constitution.md
@@ -84,6 +104,7 @@ agents MUST comply with every applicable constitution for their domain.
 |------------------------------------|---------------------------------------------|
 | [constitutions/frontend.md](constitutions/frontend.md) | Next.js (TypeScript) and Tailwind CSS stack |
 | [constitutions/backend.md](constitutions/backend.md)   | Django, DRF, and PostgreSQL stack           |
+| [constitutions/integration.md](constitutions/integration.md) | Frontend–backend API integration layer |
 
 ## Governance
 
@@ -103,4 +124,4 @@ All PRs and spec reviews MUST verify compliance with the principles in this docu
 Domain-specific deviations from the defined tech stacks MUST be justified in the relevant
 `plan.md` under **Complexity Tracking**.
 
-**Version**: 1.2.0 | **Ratified**: 2026-03-23 | **Last Amended**: 2026-03-25
+**Version**: 1.3.0 | **Ratified**: 2026-03-23 | **Last Amended**: 2026-04-06

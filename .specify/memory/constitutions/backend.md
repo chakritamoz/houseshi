@@ -1,5 +1,14 @@
 # Houseshi Constitution — Backend
 
+## Ownership
+
+| Role         | Name  | Scope                          |
+|--------------|-------|--------------------------------|
+| Backend Lead | David | All backend work and decisions |
+
+David is the designated owner of all backend concerns: architecture decisions, code review,
+dependency approvals, and enforcement of this constitution.
+
 ## Technology Stack
 
 The following backend stack is mandatory for all features. Introducing a technology outside
@@ -160,4 +169,65 @@ If violation detected:
 
 ---
 
-**Version**: 2.0.0 | **Ratified**: 2026-03-23 | **Last Amended**: 2026-03-25
+## 6. Testing Rules
+
+All backend code MUST comply with the following test case rules. These rules are enforced in CI
+and block merging on failure.
+
+### 6.1 Every Endpoint Must Have a Test
+
+- **ID**: `every_endpoint_must_have_test`
+- Every endpoint declared in the Django URL resolver MUST have at least one test covering it.
+- **Enforcement**: static analysis — scan URL patterns and cross-reference against the test suite.
+- **Fail condition**: any endpoint found with no reference in the test suite.
+
+### 6.2 Minimum Test Coverage
+
+- **ID**: `minimum_test_coverage`
+- Project-wide coverage MUST NOT fall below **90%**.
+- **Tool**: `coverage.py` via `pytest --cov=. --cov-fail-under=90`
+- **Fail condition**: coverage report below threshold.
+
+### 6.3 Enforce Authentication
+
+- **ID**: `enforce_authentication`
+- Every endpoint MUST require authentication, except those on the allowlist.
+- **Allowlisted (unauthenticated) endpoints**:
+  - `/api/auth/login/`
+  - `/api/auth/register/`
+- **Enforcement**: runtime test — send unauthenticated request to each non-allowlisted endpoint.
+- **Fail condition**: endpoint returns `200` without authentication.
+
+### 6.4 No Internal Server Error
+
+- **ID**: `no_internal_server_error`
+- No endpoint MUST return a `5xx` response under any test scenario.
+- **Enforcement**: runtime test — exercise all endpoints and inspect status codes.
+- **Fail condition**: `response.status_code >= 500`.
+
+### 6.5 Response Schema Consistency
+
+- **ID**: `response_schema_consistency`
+- Every response MUST match the schema defined by its serializer.
+- **Enforcement**: runtime test — validate response fields against expected serializer schema.
+- **Fail condition**: response contains fields not present in, or missing fields required by, the schema.
+
+### 6.6 No Sensitive Data Leak
+
+- **ID**: `no_sensitive_data_leak`
+- Responses MUST NOT contain sensitive fields such as `password`, `token`, or `secret`.
+- **Enforcement**: runtime test — scan all response keys for forbidden field names.
+- **Fail condition**: a forbidden field is found in any response body.
+
+### 6.7 Execution & CI
+
+| Setting        | Value                                  |
+|----------------|----------------------------------------|
+| Test runner    | `pytest`                               |
+| Command        | `pytest --cov=. --cov-fail-under=90`   |
+| CI integration | required                               |
+| Block on fail  | yes — failing tests block all merges   |
+
+---
+
+**Version**: 2.1.0 | **Ratified**: 2026-03-23 | **Last Amended**: 2026-04-06

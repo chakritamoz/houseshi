@@ -1,4 +1,44 @@
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 2.0.0 → 3.0.0
+
+Modified principles:
+  - Ownership: added (Lisa as Frontend Lead)
+  - Workspace: app responsibilities: API calls + Server actions removed (BREAKING)
+  - Section 3.2 ALLOWED: removed API calls + Server actions
+  - Section 3.3 API Layer: replaced with out-of-scope redirect to integration.md
+  - Section 7 App Layer DoD: removed service layer requirement
+  - Section 9 Enforcement: removed API enforcement rule
+
+Added sections:
+  - Ownership
+  - Section 3.3 redirect note to constitutions/integration.md
+
+Removed sections:
+  - Service layer ownership (delegated to Integration team)
+
+Templates requiring updates:
+  ✅ .specify/memory/constitutions/frontend.md — this file
+  ✅ .specify/memory/constitutions/integration.md — created (new)
+  ✅ .specify/memory/constitution.md — integration.md row added to domain table
+
+Follow-up TODOs:
+  - Existing frontend code using service-layer API calls must be migrated to integration ownership.
+-->
+
 # Houseshi Constitution — Frontend
+
+## Ownership
+
+| Role          | Name | Scope                              |
+|---------------|------|------------------------------------|
+| Frontend Lead | Lisa | All frontend UI work and decisions |
+
+Lisa is the designated owner of all frontend concerns: UI architecture, component design,
+Storybook coverage, styling, and enforcement of this constitution. Frontend work MUST NOT
+include backend API integration — that is owned by the Integration team and governed by
+`constitutions/integration.md`.
 
 ## Scope
 
@@ -33,10 +73,14 @@ Frontend MUST be split into 2 workspaces:
 - Framework: Next.js (App Router only)
 - Responsibility:
   - Routing
-  - API calls
-  - Server actions
-  - Authentication
+  - Authentication (UI-side flows: login/logout pages)
   - Page composition
+- NOT RESPONSIBLE FOR:
+  - API calls to backend
+  - Server actions connecting to backend
+  - Service layer implementation
+
+> API integration is owned by the Integration team. See `constitutions/integration.md`.
 
 ## 1.2 Workspace: ui
 
@@ -84,35 +128,29 @@ Frontend MUST be split into 2 workspaces:
 
 ### ALLOWED
 
-- API calls
-- Server actions
 - Routing
-- Auth handling
-- Page composition
+- Auth UI handling (login/logout page flows)
+- Page composition using `ui` workspace components
 
 ### FORBIDDEN
 
+- API calls to backend
+- Server actions connecting to backend
 - Creating reusable UI components
 - Creating design system logic
 - Writing duplicated UI
 
-## 3.3 API Layer
+> Backend API integration is out of scope for this workspace.
+> All integration work is governed by `constitutions/integration.md`.
 
-All API calls MUST go through the service layer.
+## 3.3 API Integration (Out of Scope)
 
-**Structure:**
+Frontend does NOT own or implement backend API calls. All API integration — service layer,
+error handling, and authentication wiring — is owned by the Integration team.
 
-```
-/services
-  user.service.ts
-  auth.service.ts
-```
-
-**Rules:**
-
-- MUST NOT call API directly inside components
-- MUST handle errors inside service layer
-- MUST return typed responses
+- Frontend components MUST use mock data or receive data via props only.
+- MUST NOT create `/services` that call real backend endpoints.
+- Refer to `constitutions/integration.md` for all API and service layer rules.
 
 ## 3.4 UI Usage Rules
 
@@ -249,7 +287,7 @@ A component is considered VALID only if:
 
 - Uses `ui` components only
 - No direct API calls in components
-- Uses service layer for data fetching
+- No backend integration code (owned by Integration team per `constitutions/integration.md`)
 - No duplicated UI logic
 
 ---
@@ -269,7 +307,7 @@ When generating code, AI MUST:
 
 - Prefer existing components from `ui` workspace
 - Reject creating new base UI if shadcn alternative exists
-- Enforce service layer usage for API calls
+- MUST NOT generate API calls or backend integration code (refer to Integration team)
 - Ensure every UI component includes Storybook
 
 If violation detected:
@@ -278,4 +316,4 @@ If violation detected:
 
 ---
 
-**Version**: 2.0.0 | **Ratified**: 2026-03-23 | **Last Amended**: 2026-03-25
+**Version**: 3.0.0 | **Ratified**: 2026-03-23 | **Last Amended**: 2026-04-06
