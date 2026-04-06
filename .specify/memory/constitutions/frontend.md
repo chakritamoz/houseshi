@@ -1,36 +1,25 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version change: 3.1.0 → 3.2.0
+Version change: 3.2.0 → 3.3.0
 
 Modified principles:
-  - Section 5.1: Stories mandate extended to reference Section 10 testing requirements
-  - Section 7: DoD extended — all 9 test types required per component/page
-  - Section 9: Enforcement — added testing rules enforcement
+  - Section 2: Added 2.3 Color & Theming Rules (new MANDATORY global rule)
+  - Section 9: Enforcement — added color rule enforcement
+  - Section 7: DoD Component Layer — added color token compliance check
 
 Added sections:
-  - Section 10: Testing Rules (MANDATORY) — all 9 testing strategies
-    - 10.1 Interaction Testing
-    - 10.2 Accessibility Testing
-    - 10.3 Visual Testing
-    - 10.4 Snapshot Testing
-    - 10.5 Test Coverage
-    - 10.6 CI
-    - 10.7 Vitest Addon
-    - 10.8 Test Runner
-    - 10.9 Unit Testing
+  - Section 2.3 Color & Theming Rules
 
 Removed sections: none
 
 Templates requiring updates:
   ✅ .specify/memory/constitutions/frontend.md — this file
-  ⚠ .specify/templates/tasks-template.md — task phases should include testing tasks for all 9 strategies
   ⚠ .specify/memory/constitutions/integration.md — workspace name refs (app/ui) still pending update
 
 Follow-up TODOs:
-  - Add @storybook/addon-interactions, @storybook/addon-a11y, @storybook/addon-vitest to component package.json.
-  - Configure Storybook test runner and coverage reporter.
-  - Set up CI pipeline step to run `storybook-test-runner`.
+  - Audit existing components for hardcoded color values (hex, rgb, hsl literals not via CSS vars).
+  - Ensure global.css / index.css defines all design token CSS variables before migration.
 -->
 
 # Houseshi Constitution — Frontend
@@ -123,6 +112,48 @@ Frontend MUST be split into 2 workspaces:
 - Components: PascalCase
 - Hooks: `useSomething`
 - Files: kebab-case
+
+## 2.3 Color & Theming Rules
+
+Colors MUST only be applied via CSS custom properties (design tokens) defined in
+`global.css` or `index.css`. This is required for theme flexibility and consistency.
+
+### FORBIDDEN — direct color values in components
+
+- MUST NOT use hardcoded hex values: `color: #1a2b3c`
+- MUST NOT use hardcoded `rgb()` / `rgba()` / `hsl()` / `hsla()` literals
+- MUST NOT use Tailwind arbitrary color values: `bg-[#1a2b3c]`, `text-[rgb(0,0,0)]`
+- MUST NOT use named CSS colors: `color: red`, `background: white`
+
+### REQUIRED — token-based color usage
+
+- MUST define all colors as CSS variables in `global.css` or `index.css`:
+  ```css
+  /* global.css or index.css */
+  :root {
+    --color-primary: hsl(220 90% 56%);
+    --color-background: hsl(0 0% 100%);
+    --color-foreground: hsl(220 10% 10%);
+  }
+  .dark {
+    --color-background: hsl(220 10% 10%);
+    --color-foreground: hsl(0 0% 100%);
+  }
+  ```
+- Components MUST consume colors only via CSS variables:
+  ```tsx
+  // ✅ Tailwind CSS variable utility
+  <div className="bg-background text-foreground" />
+  // ✅ Inline CSS variable
+  <div style={{ color: 'var(--color-primary)' }} />
+  ```
+- Tailwind theme extension in `tailwind.config.ts` MUST map all design tokens to CSS
+  variables — MUST NOT hardcode color values in the config itself.
+
+### Rationale
+
+Theme switching (light/dark/brand) requires all color decisions to live in one place.
+Hardcoded colors in component files make global theming impossible to maintain.
 
 ---
 
@@ -324,6 +355,7 @@ A component is considered VALID only if:
 - Story file exists in `component/src/stories/`
 - Component renders successfully in Storybook
 - Uses shadcn as base (no from-scratch base components)
+- No hardcoded color values — all colors via CSS variables from `global.css` / `index.css`
 - All Section 10 tests pass:
   - ✅ Interaction test (`play` function) if component is interactive
   - ✅ Accessibility: zero axe violations at WCAG AA
@@ -367,11 +399,15 @@ When generating code, AI MUST:
 - Place all stories in `component/src/stories/`
 - Keep `client/app/` `page.tsx` files thin — only a Page component import
 - MUST NOT generate API calls or backend integration code (refer to Integration team)
+- MUST NOT output hardcoded color values (hex, rgb, hsl, named colors) in any component,
+  story, or style file — use CSS variables from `global.css` / `index.css` only
+- MUST NOT use Tailwind arbitrary color values `bg-[#...]` or `text-[rgb(...)]`
 
 If violation detected:
 
 - MUST refactor instead of bypassing rules
 - MUST add missing tests before merging
+- MUST replace any hardcoded color with the appropriate CSS variable
 
 ---
 
@@ -495,4 +531,4 @@ Recommended CI step order:
 
 ---
 
-**Version**: 3.2.0 | **Ratified**: 2026-03-23 | **Last Amended**: 2026-04-06
+**Version**: 3.3.0 | **Ratified**: 2026-03-23 | **Last Amended**: 2026-04-06
