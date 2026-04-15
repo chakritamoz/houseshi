@@ -1,7 +1,7 @@
 # Tasks: Web Monorepo Workspace Setup
 
 **Input**: Design documents from `/specs/001-web-workspace-setup/`
-**Branch**: `002-web-workspace-setup`
+**Branch**: `001-web-workspace-setup`
 **Prerequisites**: plan.md ✅ spec.md ✅ research.md ✅ data-model.md ✅ contracts/ ✅
 
 ## Format: `[ID] [P?] [Story?] Description`

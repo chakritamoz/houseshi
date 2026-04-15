@@ -1,6 +1,6 @@
 # Feature Specification: Web Monorepo Workspace Setup
 
-**Feature Branch**: `002-web-workspace-setup`  
+**Feature Branch**: `001-web-workspace-setup`  
 **Created**: 2026-04-15  
 **Status**: Draft  
 **Input**: User description: "ทำการ set up ให้ web/client และ web/component ทำงานเป็น workspace โดย control package ผ่านไฟล์ Package.json ตัวเดียวกันเท่านั้น"

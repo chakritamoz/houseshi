@@ -1,6 +1,6 @@
 # Quickstart: Web Workspace
 
-**Phase 1 Output** | Branch: `002-web-workspace-setup`
+**Phase 1 Output** | Branch: `001-web-workspace-setup`
 
 ## Prerequisites
 

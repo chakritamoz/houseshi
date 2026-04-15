@@ -1,6 +1,6 @@
 # Data Model: Web Monorepo Workspace Setup
 
-**Phase 1 Output** | Branch: `002-web-workspace-setup`
+**Phase 1 Output** | Branch: `001-web-workspace-setup`
 
 ---
 

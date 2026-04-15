@@ -1,6 +1,6 @@
 # Implementation Plan: Web Monorepo Workspace Setup
 
-**Branch**: `002-web-workspace-setup` | **Date**: 2026-04-15 | **Spec**: [spec.md](spec.md)
+**Branch**: `001-web-workspace-setup` | **Date**: 2026-04-15 | **Spec**: [spec.md](spec.md)
 **Input**: Feature specification from `/specs/001-web-workspace-setup/spec.md`
 
 ## Summary

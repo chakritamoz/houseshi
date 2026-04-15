@@ -1,6 +1,6 @@
 # Contract: Workspace Package Interface
 
-**Phase 1 Output** | Branch: `002-web-workspace-setup`
+**Phase 1 Output** | Branch: `001-web-workspace-setup`
 
 This document defines the contracts between packages in the `web/` pnpm workspace — specifically the interface the `@web/component` package exposes to consumers (namely `web/client`).
 

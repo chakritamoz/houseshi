@@ -1,6 +1,6 @@
 # Research: Web Monorepo Workspace Setup
 
-**Phase 0 Output** | Branch: `002-web-workspace-setup`
+**Phase 0 Output** | Branch: `001-web-workspace-setup`
 
 ---
 
