@@ -12,11 +12,11 @@ services:
     volumes:
       - houseshi-db:/var/lib/postgresql/
 
-  backend:
+  houseshi-core:
     build:
       context: ./api/backend
       dockerfile: ../../.config/dev/docker/python.Dockerfile
-    container_name: houseshi_backend
+    container_name: houseshi_core
     environment:
       DATABASE_URL: postgres://postgres:password@houseshi-db:5432/houseshi
     ports:

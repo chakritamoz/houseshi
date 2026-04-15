@@ -1,0 +1,15 @@
+packages:
+  - "client"
+  - "component"
+
+ignoredBuiltDependencies:
+  - sharp
+  - unrs-resolver
+
+supportedArchitectures:
+  os:
+    - darwin
+    - linux
+  cpu:
+    - x64
+    - arm64

@@ -1,0 +1,23 @@
+services:
+
+  houseshi-web:
+    build:
+      context: ./web
+      dockerfile: ../.config/dev/docker/node.Dockerfile
+    container_name: houseshi-web
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./web:/app
+    command: "pnpm start"
+
+  houseshi-storybook:
+    build:
+      context: ./web
+      dockerfile: ../.config/dev/docker/node.Dockerfile
+    container_name: houseshi-storybook
+    ports:
+      - "6006:6006"
+    volumes:
+      - ./web:/app
+    command: "pnpm storybook"

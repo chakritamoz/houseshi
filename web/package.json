@@ -1,0 +1,15 @@
+{
+    "name": "web",
+    "private": true,
+    "scripts": {
+        "dev:client": "pnpm --filter client dev",
+        "dev:component": "pnpm --filter @web/component dev",
+        "build:client": "pnpm --filter client build",
+        "build:component": "pnpm --filter @web/component build",
+        "start": "pnpm --filter client start",
+        "lint": "pnpm -r run lint",
+        "storybook": "pnpm --filter @web/component storybook",
+        "build-storybook": "pnpm --filter @web/component build-storybook",
+        "test": "pnpm --filter @web/component test"
+    }
+}
