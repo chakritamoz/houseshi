@@ -21,9 +21,12 @@ services:
       DATABASE_URL: postgres://postgres:password@houseshi-db:5432/houseshi
     ports:
       - "8000:8000"
+    volumes:
+      - ./api/backend:/app
     depends_on:
       - houseshi-db
     command: "uv run python manage.py runserver 0.0.0:8000"
+    # command: "sleep infinity"
 
 volumes:
   houseshi-db:

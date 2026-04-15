@@ -1,4 +1,4 @@
-FROM python:3.14
+FROM python:3.14-bookworm
 
 # ป้องกัน pyc + buffer
 ENV PYTHONDONTWRITEBYTECODE=1
