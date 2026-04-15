@@ -6,6 +6,9 @@ ignoredBuiltDependencies:
   - sharp
   - unrs-resolver
 
+onlyBuiltDependencies:
+  - esbuild
+
 supportedArchitectures:
   os:
     - darwin
