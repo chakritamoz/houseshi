@@ -1,0 +1,35 @@
+{
+    "realm": "houseshi",
+    "enabled": true,
+    "clients": [
+        {
+            "clientId": "houseshi",
+            "secret": "c42LLO2u838h0xdnCfya6UEh2XuqVUK9",
+            "publicClient": false,
+            "directAccessGrantsEnabled": true,
+            "serviceAccountsEnabled": true,
+            "standardFlowEnabled": true,
+            "redirectUris": [
+                "*"
+            ],
+            "baseUrl": "http://localhost:3000",
+            "adminUrl": ""
+        }
+    ],
+    "users": [
+        {
+            "username": "admin",
+            "enabled": true,
+            "email": "admin@gmail.com",
+            "firstName": "Admin",
+            "lastName": "User",
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "admin",
+                    "temporary": false
+                }
+            ]
+        }
+    ]
+}
