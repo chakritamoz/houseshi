@@ -9,7 +9,7 @@ services:
       - "3000:3000"
     volumes:
       - ./web:/app
-    command: "pnpm start"
+    command: "pnpm dev:client"
 
   houseshi-storybook:
     build:
@@ -20,4 +20,5 @@ services:
       - "6006:6006"
     volumes:
       - ./web:/app
-    command: "pnpm storybook"
+      - /app/node_modules
+    command: "pnpm dev:component"

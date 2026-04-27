@@ -1,0 +1,2 @@
+/* Import index.css from alias */
+@import "../../component/src/index.css";

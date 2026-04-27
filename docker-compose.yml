@@ -1,4 +1,4 @@
 include:
+  - docker-compose-keycloak.yml
   - docker-compose-web.yml
   - docker-compose-backend.yml
-  - docker-compose-keycloak.yml
